@@ -4,7 +4,6 @@ import { LogOut, ClockPlus } from "lucide-react"
 import { CarouselDemo } from "@/components/feed"
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -15,9 +14,8 @@ import { useState, useEffect } from "react"
 import HourGlass from "./assets/hourglass.png"
 
 export function App() {
-  const [time, setTime] = useState(5);
+  const [_time, setTime] = useState(5);
   const [open, setOpen] = useState(false);
-  const [manual, setManual] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(() => {

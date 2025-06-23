@@ -28,7 +28,7 @@ export function CarouselDemo() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [liked, setLiked] = useState(false)
   const [time, setTime] = useState(1000);
-  const [manual, setManual] = useState(false);
+  const [manual, _setManual] = useState(false);
   
   useEffect(() => {
     const timer = setInterval(() => {
