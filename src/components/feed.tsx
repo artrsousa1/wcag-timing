@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Avatar, AvatarImage } from "@radix-ui/react-avatar"
-import { ChevronLeft, ChevronRight, Heart, MessageCircle, Share } from "lucide-react"
+import { ChevronLeft, ChevronRight, Heart, MessageCircle, Share, Play, Pause } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { motion, AnimatePresence } from "framer-motion"
 
@@ -28,7 +28,7 @@ export function CarouselDemo() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [liked, setLiked] = useState(false)
   const [time, setTime] = useState(1000);
-  const [manual, _setManual] = useState(false);
+  const [manual, setManual] = useState(false);
   
   useEffect(() => {
     const timer = setInterval(() => {
@@ -94,6 +94,18 @@ export function CarouselDemo() {
                   transition={{ duration: 0.3 }}
                 />
               </AnimatePresence>
+              <Button
+              variant="default"
+              size="icon"
+              className="absolute right-2 top-6 -translate-y-1/2 bg-white/80 hover:bg-white/90"
+              onClick={() => setManual(!manual)}
+              >
+                {manual ? (
+                  <Play className="size-4" fill="black" strokeWidth={0}/>
+                ) : (
+                  <Pause className="size-4" fill="black" strokeWidth={0}/>
+                )}
+              </Button>
               <Button
                 variant="outline"
                 size="icon"

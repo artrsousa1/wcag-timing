@@ -1,14 +1,16 @@
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { LogOut, ClockPlus } from "lucide-react"
+import { LogOut, ClockPlus, Settings, Save } from "lucide-react"
 import { CarouselDemo } from "@/components/feed"
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
+  DialogTrigger,
 } from "@/components/ui/dialog"
 import { useState, useEffect } from "react"
 import HourGlass from "./assets/hourglass.png"
@@ -16,6 +18,8 @@ import HourGlass from "./assets/hourglass.png"
 export function App() {
   const [_time, setTime] = useState(5);
   const [open, setOpen] = useState(false);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [defaultTime, setDefaultTime] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -39,6 +43,10 @@ export function App() {
     }
   }
 
+  const handleSaveSettings = (precision: string, time: number) => {
+    console.log('testando aqui a funcionalidade')
+    setIsSettingsOpen(false);
+  }
 
   return (
     <>
@@ -89,6 +97,34 @@ export function App() {
       <div className="flex min-h-svh flex-col items-center justify-center">
         <CarouselDemo />
       </div>
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button
+            variant="default"
+            size="icon"
+            className="fixed bottom-4 right-4 z-50"
+            onClick={() => setIsSettingsOpen(true)}
+          >
+            <Settings className="size-4" />
+          </Button>
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>Settings</DialogTitle>
+            <DialogDescription className="text-center">
+              Adjust your screen time limit and other settings here.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="">
+            <DialogClose>
+              <Button type="submit" onClick={() => handleSaveSettings('minutes', 10)}>
+                <Save className="size-4" />
+                Save
+              </Button>
+            </DialogClose>
+        </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </>
   )
 }
