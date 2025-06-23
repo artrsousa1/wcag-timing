@@ -1,8 +1,9 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Avatar, AvatarImage } from "@radix-ui/react-avatar"
 import { ChevronLeft, ChevronRight, Heart, MessageCircle, Share } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { motion, AnimatePresence } from "framer-motion"
 
 const posts = [
   {
@@ -26,6 +27,33 @@ const posts = [
 export function CarouselDemo() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [liked, setLiked] = useState(false)
+  const [time, setTime] = useState(1000);
+  const [manual, setManual] = useState(false);
+  
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTime((prevTime) => {
+        return prevTime - 1;
+      });
+    }, 1000);
+
+    if (time <= 0) {
+      setTime(1000);
+    }
+
+    return () => clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    if (time <= 0) {
+      setTime(1000);
+    }
+
+    if (!manual && time % 10 === 0) {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % posts.length);
+    }
+  }, [time, manual]);
+  
 
   const nextSlide = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % posts.length)
@@ -41,23 +69,31 @@ export function CarouselDemo() {
       <div className="relative">
         <Card className="overflow-hidden">
           <CardContent className="p-0">
-            <div className="flex items-center gap-3 p-4 border-b">
+            <div className="flex items-center gap-3 p-2 pb-4 border-b max-w-[90%]">
               <Avatar className="rounded size-10">
                 <AvatarImage src="https://github.com/shadcn.png" />
               </Avatar>
               <div className="flex-1">
                 <p className="font-semibold text-sm">Usuário</p>
                 <p className="text-xs text-muted-foreground">
-                  Random User • 4h ago
+                  @random_user • 4h ago
                 </p>
               </div>
             </div>
             <div className="relative">
-              <img
-                src={currentPost.image}
-                alt="Post content"
-                className="w-full h-64 object-cover"
-              />
+              <AnimatePresence mode="popLayout">
+                <motion.img
+                  key={currentPost.id}
+                  src={currentPost.image}
+                  alt="Post content"
+                  className="w-full h-64 object-cover"
+                  draggable="false"
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  transition={{ duration: 0.3 }}
+                />
+              </AnimatePresence>
               <Button
                 variant="outline"
                 size="icon"
@@ -88,7 +124,13 @@ export function CarouselDemo() {
                   onClick={() => setLiked(!liked)}
                   className="flex items-center gap-2 text-muted-foreground hover:text-red-500"
                 >
-                  <Heart className="size-4" />
+                  {
+                    liked ? (
+                      <Heart className="size-4 text-red-500" fill="red" />
+                    ) : (
+                      <Heart className="size-4" />
+                    )
+                  }
                   <span className="text-xs">{liked ? "190" : "189"}</span>
                 </Button>
                 <Button
