@@ -43,7 +43,7 @@ export function App() {
     }
   }
 
-  const handleSaveSettings = (precision: string, time: number) => {
+  const handleSaveSettings = (_precision: string, _time: number) => {
     console.log('testando aqui a funcionalidade')
     setIsSettingsOpen(false);
   }
