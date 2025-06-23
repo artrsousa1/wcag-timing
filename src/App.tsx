@@ -18,8 +18,8 @@ import HourGlass from "./assets/hourglass.png"
 export function App() {
   const [_time, setTime] = useState(5);
   const [open, setOpen] = useState(false);
-  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-  const [defaultTime, setDefaultTime] = useState(false);
+  const [_isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [_defaultTime, _setDefaultTime] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(() => {
