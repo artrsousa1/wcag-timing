@@ -101,11 +101,10 @@ export function App() {
         <DialogTrigger asChild>
           <Button
             variant="default"
-            size="icon"
-            className="fixed bottom-4 right-4 z-50"
+            className="fixed bottom-4 right-4 z-50 w-12 h-12"
             onClick={() => setIsSettingsOpen(true)}
           >
-            <Settings className="size-4" />
+            <Settings className="size-6" />
           </Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">

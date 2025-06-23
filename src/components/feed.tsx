@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { Card, CardContent } from "@/components/ui/card"
-import { Avatar, AvatarImage } from "@radix-ui/react-avatar"
+import { Avatar, AvatarImage } from "@/components/ui/avatar"
 import { ChevronLeft, ChevronRight, Heart, MessageCircle, Share, Play, Pause } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { motion, AnimatePresence } from "framer-motion"
@@ -70,7 +70,7 @@ export function CarouselDemo() {
         <Card className="overflow-hidden">
           <CardContent className="p-0">
             <div className="flex items-center gap-3 p-2 pb-4 border-b max-w-[90%]">
-              <Avatar className="rounded size-10">
+              <Avatar className="size-12 ml-4">
                 <AvatarImage src="https://github.com/shadcn.png" />
               </Avatar>
               <div className="flex-1">
