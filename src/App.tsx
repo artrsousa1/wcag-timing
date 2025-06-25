@@ -99,14 +99,14 @@ export function App() {
           </div>
           <Button size="sm" className="gap-2" variant="default">
             <LogOut className="size-4" />
-            Logout
+            Sair
           </Button>
         </div>
       </header>
       <Dialog open={open}>
         <DialogContent className="sm:max-w-[425px]" showCloseButton={false}>
           <DialogHeader>
-            <DialogTitle>Time Limit</DialogTitle>
+            <DialogTitle>Sessão expirada</DialogTitle>
             <img
               src={HourGlass}
               alt="hourglass"
@@ -114,16 +114,16 @@ export function App() {
               draggable="false"
             />
             <DialogDescription className="text-center">
-              You've reached the time limit on WCAG Timer Feed.
+              Sua sessão expirou. Você pode adicionar mais tempo ou ignorar o limite de tempo por hoje.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter className="justify-center" style={{ justifyContent: "center" }}>
             <Button variant="outline" onClick={handleIgnoreLimit}>
-              Ignore limit for today
+              Ignorar limite hoje
             </Button>
             <Button type="submit" onClick={() => handleAddTime(15)}>
               <ClockPlus className="size-4" />
-              Add 15 minutes
+              Prolongar 15 minutos
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -143,14 +143,14 @@ export function App() {
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>Settings</DialogTitle>
+            <DialogTitle>Configurações</DialogTitle>
             <DialogDescription className="text-center">
-              Adjust your screen time limit and other settings here.
+              Ajuste o limite de tempo por sessão.
             </DialogDescription>
           </DialogHeader>
           <div className="flex flex-col gap-4 mt-4">
             <div className="flex items-center gap-2">
-              <label className="text-sm w-28">Time Value:</label>
+              <label className="text-sm w-28">Valor do tempo:</label>
               <Input
                 type="number"
                 min={1}
@@ -160,14 +160,14 @@ export function App() {
               />
             </div>
             <div className="flex items-center gap-2">
-              <label className="text-sm w-28">Unit:</label>
+              <label className="text-sm w-28">Unidade:</label>
               <Select value={precision} onValueChange={(val) => setPrecision(val as "minutes" | "seconds")}>
                 <SelectTrigger className="w-full">
                   <SelectValue placeholder="Select unit" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="minutes">Minutes</SelectItem>
-                  <SelectItem value="seconds">Seconds</SelectItem>
+                  <SelectItem value="minutes">Minutos</SelectItem>
+                  <SelectItem value="seconds">Segundos</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -177,7 +177,7 @@ export function App() {
             <DialogClose>
               <Button type="submit" onClick={() => handleSaveSettings(precision, screenTime)}>
                 <Save className="size-4" />
-                Save
+                Salvar
               </Button>
             </DialogClose>
           </DialogFooter>
