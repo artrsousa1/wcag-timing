@@ -2,32 +2,9 @@
 
 ## 👥 Grupo e Integrantes
 
-<div style="display: flex; justify-content: center; gap: 20px; flex-wrap: nowrap;">
-  <a href="https://github.com/artrsousa1" style="text-align: center; display: flex; flex-direction: column; align-items: center;">
-    <img src="https://github.com/artrsousa1.png" width="100px" style="border-radius: 50%;" alt="Arthur Ribeiro" />
-    <sub><b>Arthur Ribeiro</b></sub>
-  </a>
+| [<img src="https://github.com/artrsousa1.png" width="115"><br><sub>Arthur Ribeiro</sub>](https://github.com/artrsousa1) | [<img src="https://github.com/matix0.png" width="115"><br><sub>Mateus Vieira</sub>](https://github.com/matix0) | [<img src="https://github.com/Joaovitor045.png" width="115"><br><sub>João Vitor</sub>](https://github.com/Joaovitor045) | [<img src="https://github.com/lfelipebessa.png" width="115"><br><sub>Luiz Bessa</sub>](https://github.com/lfelipebessa) | [<img src="https://github.com/andremeyerr.png" width="115"><br><sub>Andre Meyer</sub>](https://github.com/andremeyerr) |
+| :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------: |
 
-  <a href="https://github.com/matix0" style="text-align: center; display: flex; flex-direction: column; align-items: center;">
-    <img src="https://github.com/matix0.png" width="100px" style="border-radius: 50%;" alt="Mateus Vieira" />
-    <sub><b>Mateus Vieira</b></sub>
-  </a>
-
-  <a href="https://github.com/Joaovitor045" style="text-align: center; display: flex; flex-direction: column; align-items: center;">
-    <img src="https://github.com/Joaovitor045.png" width="100px" style="border-radius: 50%;" alt="João Vitor" />
-    <sub><b>João Vitor</b></sub>
-  </a>
-
-  <a href="https://github.com/lfelipebessa" style="text-align: center; display: flex; flex-direction: column; align-items: center;">
-    <img src="https://github.com/lfelipebessa.png" width="100px" style="border-radius: 50%;" alt="Luiz Bessa" />
-    <sub><b>Luiz Bessa</b></sub>
-  </a>
-
-  <a href="https://github.com/andremeyerr" style="text-align: center; display: flex; flex-direction: column; align-items: center;">
-    <img src="https://github.com/andremeyerr.png" width="100px" style="border-radius: 50%;" alt="Andre Meyer" />
-    <sub><b>Andre Meyer</b></sub>
-  </a>
-</div>
 
 
 ---
