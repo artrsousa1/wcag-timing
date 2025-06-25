@@ -42,7 +42,7 @@ export function CarouselDemo() {
     }
 
     return () => clearInterval(timer);
-  }, []);
+  }, [time]);
 
   useEffect(() => {
     if (time <= 0) {
@@ -65,7 +65,7 @@ export function CarouselDemo() {
 
   const currentPost = posts[currentIndex]
   return (
-   <div className="w-full max-w-md mx-auto">
+   <div className="w-full max-w-md mt-24 pb-8">
       <div className="relative">
         <Card className="overflow-hidden">
           <CardContent className="p-0">

@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { LogOut, ClockPlus, Settings, Save } from "lucide-react"
@@ -12,41 +13,73 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { useState, useEffect } from "react"
+import { Input } from "@/components/ui/input"
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select"
 import HourGlass from "./assets/hourglass.png"
 
 export function App() {
-  const [_time, setTime] = useState(5);
-  const [open, setOpen] = useState(false);
-  const [_isSettingsOpen, setIsSettingsOpen] = useState(false);
-  const [_defaultTime, _setDefaultTime] = useState(false);
+  const [_time, setTime] = useState(5)
+  const [open, setOpen] = useState(false)
+  const [_isSettingsOpen, setIsSettingsOpen] = useState(false)
+  const [defaultTime, setDefaultTime] = useState(5)
+  const [screenTime, setScreenTime] = useState("5")
+  const [precision, setPrecision] = useState<"minutes" | "seconds">("minutes")
+
+  const timeRef = useRef<number>(5)
+
+  const updateTime = (value: number) => {
+    timeRef.current = value
+    setTime(value)
+  }
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setTime((prevTime) => {
-        if (prevTime <= 1) {
-          clearInterval(timer);
-          setOpen(true);
-          return 0;
-        }
-        return prevTime - 1;
-      });
-    }, 1000);
+      timeRef.current -= 1
+      if (timeRef.current <= 0) {
+        setOpen(true)
+        updateTime(0)
+        return
+      }
+      setTime(timeRef.current)
+    }, 1000)
 
-    return () => clearInterval(timer);
-  }, []);
+    return () => clearInterval(timer)
+  }, [])
 
   const handleAddTime = (minutes: number) => {
-    setTime((prevTime) => prevTime + minutes * 60);
+    const added = minutes * 60
+    updateTime(timeRef.current + added)
     if (open) {
-      setOpen(false);
+      setOpen(false)
     }
   }
 
-  const handleSaveSettings = (_precision: string, _time: number) => {
-    console.log('testando aqui a funcionalidade')
-    setIsSettingsOpen(false);
+  const handleSaveSettings = (precision: "minutes" | "seconds", value: string) => {
+    const parsedValue = parseInt(value, 10)
+    if (isNaN(parsedValue)) return
+    const seconds = precision === "minutes" ? parsedValue * 60 : parsedValue
+    updateTime(seconds)
+    setDefaultTime(seconds)
+    setIsSettingsOpen(false)
   }
+
+  const handleIgnoreLimit = () => {
+    const now = new Date();
+    const endOfDay = new Date();
+    endOfDay.setHours(23, 59, 59, 999);
+
+    const secondsRemaining = Math.floor((endOfDay.getTime() - now.getTime()) / 1000);
+
+    const totalTime = secondsRemaining + defaultTime;
+    updateTime(totalTime);
+    setOpen(false);
+  };
 
   return (
     <>
@@ -62,9 +95,9 @@ export function App() {
               <AvatarImage src="https://github.com/shadcn.png" />
               <AvatarFallback>GU</AvatarFallback>
             </Avatar>
-          <span className="text-sm font-semibold">Guest</span>
+            <span className="text-sm font-semibold">Guest</span>
           </div>
-          <Button size="sm" className="gap-2" variant={"default"}>
+          <Button size="sm" className="gap-2" variant="default">
             <LogOut className="size-4" />
             Logout
           </Button>
@@ -75,7 +108,8 @@ export function App() {
           <DialogHeader>
             <DialogTitle>Time Limit</DialogTitle>
             <img
-              src={HourGlass} alt="hourglass"
+              src={HourGlass}
+              alt="hourglass"
               className="mx-auto mb-4 w-16 h-16 my-8 opacity-60"
               draggable="false"
             />
@@ -83,15 +117,15 @@ export function App() {
               You've reached the time limit on WCAG Timer Feed.
             </DialogDescription>
           </DialogHeader>
-          <DialogFooter className="">
-            <Button variant="outline" onClick={() => setOpen(false)}>
+          <DialogFooter className="justify-center" style={{ justifyContent: "center" }}>
+            <Button variant="outline" onClick={handleIgnoreLimit}>
               Ignore limit for today
             </Button>
             <Button type="submit" onClick={() => handleAddTime(15)}>
               <ClockPlus className="size-4" />
               Add 15 minutes
             </Button>
-        </DialogFooter>
+          </DialogFooter>
         </DialogContent>
       </Dialog>
       <div className="flex min-h-svh flex-col items-center justify-center">
@@ -114,14 +148,39 @@ export function App() {
               Adjust your screen time limit and other settings here.
             </DialogDescription>
           </DialogHeader>
-          <DialogFooter className="">
+          <div className="flex flex-col gap-4 mt-4">
+            <div className="flex items-center gap-2">
+              <label className="text-sm w-28">Time Value:</label>
+              <Input
+                type="number"
+                min={1}
+                value={screenTime}
+                onChange={(e) => setScreenTime(e.target.value)}
+                placeholder="Enter time"
+              />
+            </div>
+            <div className="flex items-center gap-2">
+              <label className="text-sm w-28">Unit:</label>
+              <Select value={precision} onValueChange={(val) => setPrecision(val as "minutes" | "seconds")}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select unit" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="minutes">Minutes</SelectItem>
+                  <SelectItem value="seconds">Seconds</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+
+          <DialogFooter className="mt-6">
             <DialogClose>
-              <Button type="submit" onClick={() => handleSaveSettings('minutes', 10)}>
+              <Button type="submit" onClick={() => handleSaveSettings(precision, screenTime)}>
                 <Save className="size-4" />
                 Save
               </Button>
             </DialogClose>
-        </DialogFooter>
+          </DialogFooter>
         </DialogContent>
       </Dialog>
     </>
